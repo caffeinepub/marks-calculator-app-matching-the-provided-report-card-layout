@@ -1,69 +1,18 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-09T05:16:12.600Z",
-  "summary": "The diff adds a React+TypeScript report-card UI with scholastic table calculations, co-scholastic fields, attendance/result/remarks, a print action, and a background-form image overlay. However, some required table rows/validation feedback cannot be confirmed from the truncated ScholasticTable, and Internet Identity/auth-related infrastructure was introduced despite being a non-goal.",
-  "missing_requirements": [
-    {
-      "id": "REQ-4",
-      "requirement": "Include a 'Total' row and a 'Percentage' row in the scholastic table, where the Total row sums each numeric column across subjects and Percentage is computed from summed 'Total 100 Marks'.",
-      "reason": "While calculation helpers for column totals and percentage exist (calculateColumnTotals, calculatePercentage), the provided ScholasticTable.tsx content is truncated before showing whether it actually renders explicit 'Total' and 'Percentage' rows in the table UI.",
-      "evidence": [
-        "frontend/src/components/ReportCard/ScholasticTable.tsx (truncated)",
-        "frontend/src/lib/marks.ts"
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "requirement": "Add basic validation and inline feedback: Half Yearly and Annual marks outside 0–100 are flagged and excluded from calculations; Unit Test inputs do not allow negative values; validation messages are inline and do not break layout.",
-      "reason": "Validation helpers exist (validateMarks, validateNonNegative) and HY/AE validation is referenced, but the truncated ScholasticTable.tsx does not show the inline error rendering nor confirm UT negative prevention (e.g., min=0 on UT inputs or use of validateNonNegative).",
-      "evidence": [
-        "frontend/src/components/ReportCard/ScholasticTable.tsx (truncated)",
-        "frontend/src/lib/validation.ts"
-      ]
-    }
-  ],
-  "hallucinated_features": [
-    {
-      "description": "Internet Identity authentication provider and actor creation logic (authentication flow and identity-dependent actor).",
-      "reason": "The BuildRequest explicitly lists Internet Identity authentication as a non-goal, but the diff adds an InternetIdentityProvider, useInternetIdentity hook, and useActor hook that integrates identity and authenticated actor creation.",
-      "evidence": [
-        "frontend/src/main.tsx",
-        "frontend/src/hooks/useInternetIdentity.ts",
-        "frontend/src/hooks/useActor.ts"
-      ]
-    },
-    {
-      "description": "React Query client/provider setup for caching/querying (tanstack/react-query).",
-      "reason": "Not requested by any requirement; added as application infrastructure.",
-      "evidence": [
-        "frontend/src/main.tsx",
-        "frontend/src/hooks/useActor.ts"
-      ]
-    }
-  ],
-  "confidence": 0.74,
+  "generatedAt": "2026-02-09T06:18:40.992Z",
+  "summary": "REQ-23 appears implemented via print-specific Tailwind utility classes across report-card components (smaller print text sizes, reduced margins/padding/gaps) and via global @media print CSS configuring A4 landscape and tighter page/body typography/spacing. No evidence of backend changes or edits to the listed immutable hook/UI paths in the provided diff summary.",
+  "missing_requirements": [],
+  "hallucinated_features": [],
+  "confidence": 0.72,
   "changed_files": [
-    "all_files_summary.json",
-    "backend/main.mo",
     "frontend-file-summaries.txt",
-    "frontend/index.css",
-    "frontend/index.html",
     "frontend/src/App.tsx",
     "frontend/src/components/ReportCard/AttendanceAndResult.tsx",
     "frontend/src/components/ReportCard/CoScholasticFields.tsx",
     "frontend/src/components/ReportCard/ReportCardLayout.tsx",
-    "frontend/src/components/ReportCard/ScholasticTable.tsx",
-    "frontend/src/hooks/useActor.ts",
-    "frontend/src/hooks/useInternetIdentity.ts",
     "frontend/src/index.css",
-    "frontend/src/lib/defaultData.ts",
-    "frontend/src/lib/marks.ts",
-    "frontend/src/lib/types.ts",
-    "frontend/src/lib/utils.ts",
-    "frontend/src/lib/validation.ts",
-    "frontend/src/main.tsx",
-    "frontend/tailwind.config.js",
     "project_state.json"
   ]
 }

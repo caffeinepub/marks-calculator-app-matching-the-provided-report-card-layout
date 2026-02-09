@@ -1,282 +1,42 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Report-card marks calculator (image-matched layout)",
+  "title": "Print-only typography and spacing adjustments to fit report card on one A4 landscape page",
   "requirements": [
     {
-      "id": "REQ-1",
-      "summary": "Recreate the report-card/table layout as the main screen with matching headings, column structure, and lower sections.",
+      "id": "REQ-23",
+      "summary": "Tighten print-only font sizes, line heights, paddings, and vertical gaps so the full report card fits on one A4 landscape page without changing table structure or any calculations.",
       "acceptanceCriteria": [
-        "The UI contains a top title similar to the image (e.g., 'ACADEMIC PERFORMANCE' and 'SCHOLASTIC AREAS').",
-        "The main table contains the same column groups as the image: SUBJECTS; EXAMINATIONS (1st Unit Test, 2nd Unit Test, Total Marks); HALF YEARLY 100 Marks; ANNUAL EXAM 100 Marks; and computed columns for 20% of UT (X), 30% of HY (Y), 50% of AE (Z), and Total 100 Marks (X+Y+Z).",
-        "The UI includes the lower sections present in the image: a 'Fields' table (Half Yearly/Annual), an 'Attendance Records' box (Total Working Days/Present Days), and 'Result'/'Remarks' lines, plus signature placeholders for 'Class Teacher' and 'Principal'."
+        "When using the browser Print dialog, the report card prints on exactly one A4 landscape page (no second page).",
+        "Printed output is not clipped on any edge; all sections (header, scholastic table, co-scholastic fields, attendance/result/remarks, signatures) remain visible.",
+        "Font sizes in print are reduced compared to on-screen where needed, while keeping the layout readable and visually consistent with the existing report-card style.",
+        "No changes to marks calculations, subject rows, export/import/reset behavior, or non-print on-screen layout besides any necessary print-only adjustments."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/App.tsx",
-          "operation": "create",
-          "description": "Create the main single-screen report-card UI shell: headings, main scholastic table, and the lower sections (Fields, Attendance Records, Result/Remarks, signatures), structured to match the provided image layout."
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Refine @media print rules to reduce typography and tighten vertical spacing: slightly reduce @page margins if needed; introduce print-only base font-size/line-height for the report card container; reduce table cell padding and heading line-heights; tighten default margins around headers/sections; ensure no clipping by keeping print overflow visible where relevant. Keep all changes print-scoped and avoid altering non-print layout."
         },
         {
           "path": "frontend/src/components/ReportCard/ReportCardLayout.tsx",
-          "operation": "create",
-          "description": "Add a dedicated layout component that positions content over a fixed-size form canvas (relative container) so headings/sections/columns align consistently with the background form image."
+          "operation": "modify",
+          "description": "Add a stable, report-card-specific wrapper class (e.g., a dedicated className on the outer wrapper and/or content overlay) so print CSS can target the report card precisely; tighten print-only padding/margins in the header and student-info block (e.g., smaller print padding and reduced print bottom margins) without changing structure."
         },
         {
-          "path": "frontend/src/components/ReportCard/ScholasticTable.tsx",
-          "operation": "create",
-          "description": "Create the scholastic areas table component with grouped headers matching the image and rows rendered in the same column structure."
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Tighten print-only spacing between major sections by adding/adjusting print utility classes on the main content stack, the lower two-column grid (gap), and the signature section (margin-top, padding-top, signature line height) so the full layout fits on one printed page; keep on-screen spacing unchanged."
         },
         {
           "path": "frontend/src/components/ReportCard/CoScholasticFields.tsx",
-          "operation": "create",
-          "description": "Create the 'Fields' section table component with items and Half Yearly/Annual columns, matching the image section layout."
-        },
-        {
-          "path": "frontend/src/components/ReportCard/AttendanceAndResult.tsx",
-          "operation": "create",
-          "description": "Create the right-side lower box layout for Attendance Records plus Result/Remarks, and render signature placeholders consistent with the image."
-        },
-        {
-          "path": "frontend/src/index.css",
-          "operation": "create",
-          "description": "Add base styles needed for the form-like table appearance (borders, fonts, spacing helpers) and to support the report-card aesthetic globally."
-        },
-        {
-          "path": "frontend/src/main.tsx",
           "operation": "modify",
-          "description": "Wire the newly created App main screen into the React entrypoint (ensure App renders as the single main view)."
-        }
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "summary": "Add editable numeric inputs per subject for UT1, UT2, Half Yearly, and Annual with immediate in-row computed updates.",
-      "acceptanceCriteria": [
-        "Each subject row has numeric inputs for 1st Unit Test, 2nd Unit Test, Half Yearly, and Annual Exam.",
-        "Inputs prevent non-numeric values and allow clearing a value.",
-        "Changing any input immediately updates the computed columns for that row without a page reload."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/ReportCard/ScholasticTable.tsx",
-          "operation": "modify",
-          "description": "Add editable numeric inputs for UT1/UT2/HY/AE in each subject row and render computed columns in-place, updating reactively from local state."
-        },
-        {
-          "path": "frontend/src/components/ui/input.tsx",
-          "operation": "create",
-          "description": "Add a shadcn-ui style Input component wrapper for consistent form-like inputs across the table and lower sections. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/ui/button.tsx",
-          "operation": "create",
-          "description": "Add a shadcn-ui style Button component for the Print action and any minimal UI controls. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Maintain marks state for all subjects and pass row update handlers into ScholasticTable so edits update computed output immediately."
-        }
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "summary": "Implement UT total and weighted calculations (X, Y, Z) and a consistent rounding strategy across all computed values.",
-      "acceptanceCriteria": [
-        "For any row, UT Total Marks equals UT1 + UT2.",
-        "For any row, X equals 0.2 * (UT Total Marks).",
-        "For any row, Y equals 0.3 * (Half Yearly marks).",
-        "For any row, Z equals 0.5 * (Annual Exam marks).",
-        "For any row, Total 100 equals X+Y+Z.",
-        "Displayed computed values are consistently rounded (choose one approach and apply it everywhere, e.g., to 2 decimal places or nearest integer)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/lib/marks.ts",
-          "operation": "create",
-          "description": "Create pure calculation helpers for UT total, X/Y/Z weights, row total, rounding/formatting, and safe numeric parsing (supporting empty inputs)."
-        },
-        {
-          "path": "frontend/src/components/ReportCard/ScholasticTable.tsx",
-          "operation": "modify",
-          "description": "Use the shared calculation helpers to compute and display UT totals, X/Y/Z, and Total 100 for each subject row with consistent rounding."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Ensure the application-level state flow uses the shared helpers (single source of truth) so computed values stay consistent across rows, totals, and printing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "summary": "Preload the subject list as default rows and add Total and Percentage rows with correct aggregation logic.",
-      "acceptanceCriteria": [
-        "All listed subjects appear as separate rows by default.",
-        "A 'Total' row sums each numeric column across subjects (including computed columns).",
-        "A 'Percentage' row computes overall percentage based on the summed 'Total 100 Marks' across subjects divided by (number_of_subjects * 100) * 100."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/lib/defaultData.ts",
-          "operation": "create",
-          "description": "Define default subject rows (English, English II, Mathematics, Hindi, EVS, G.K., Social Studies/Science, Science, Assamese, Computer, Drawing, Conversation, Health & Physical Education) and default lower-section items."
-        },
-        {
-          "path": "frontend/src/lib/marks.ts",
-          "operation": "modify",
-          "description": "Add aggregation helpers to compute per-column totals across subjects and compute overall percentage from summed Total 100 marks."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Initialize state from the default subject list and compute derived Total and Percentage rows for display."
-        },
-        {
-          "path": "frontend/src/components/ReportCard/ScholasticTable.tsx",
-          "operation": "modify",
-          "description": "Render the default subject rows followed by read-only 'Total' and 'Percentage' rows that use aggregation helpers to display sums and overall percentage."
-        }
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "summary": "Add editable lower-section inputs for Fields (HY/Annual), Attendance Records, Result, and Remarks in the same layout sections as the image.",
-      "acceptanceCriteria": [
-        "All listed 'Fields' items are editable for both Half Yearly and Annual columns.",
-        "Attendance records allow numeric input for working days and present days.",
-        "Result and Remarks are editable text fields.",
-        "All these values render in a layout consistent with the image sections."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/ReportCard/CoScholasticFields.tsx",
-          "operation": "modify",
-          "description": "Add editable inputs for Work Experience, Regularity, Punctuality, Cleanliness, Indigenous Sports, School Programmes, Visual and Performing Art with Half Yearly and Annual columns."
+          "description": "Add print-only typography/spacing utility classes to the section title and surrounding spacing (e.g., reduce print font-size and margin-bottom) and, if necessary, apply print-only tighter input height/padding via className to improve vertical compactness while keeping the table structure unchanged."
         },
         {
           "path": "frontend/src/components/ReportCard/AttendanceAndResult.tsx",
           "operation": "modify",
-          "description": "Add numeric inputs for Total Working Days and Present Days plus editable text fields for Result and Remarks, keeping the box layout consistent with the image."
-        },
-        {
-          "path": "frontend/src/components/ui/textarea.tsx",
-          "operation": "create",
-          "description": "Add a shadcn-ui style Textarea component for Result/Remarks fields where multi-line input is helpful. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add state for Fields (HY/Annual values), Attendance (working/present), and Result/Remarks and pass update handlers to the lower-section components."
-        }
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "summary": "Add validation and inline feedback: HY/Annual must be 0–100 (excluded from calculations when invalid); Unit Tests must be non-negative.",
-      "acceptanceCriteria": [
-        "Half Yearly and Annual inputs outside 0–100 are flagged and excluded from calculations until corrected (or clamped—pick one behavior and apply consistently).",
-        "Unit Test inputs do not allow negative values.",
-        "Validation messages are in English and do not break the table layout."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/lib/validation.ts",
-          "operation": "create",
-          "description": "Implement reusable validation helpers for UT (non-negative), HY/Annual (0–100), and a strategy to mark invalid values and exclude them from computed results until corrected."
-        },
-        {
-          "path": "frontend/src/lib/marks.ts",
-          "operation": "modify",
-          "description": "Integrate validation behavior into calculations (treat invalid HY/Annual as absent for computations) while keeping rounding and totals consistent."
-        },
-        {
-          "path": "frontend/src/components/ReportCard/ScholasticTable.tsx",
-          "operation": "modify",
-          "description": "Show inline English validation feedback near/within cells for invalid values without breaking the table layout; ensure UT inputs cannot go negative (e.g., input attributes + guard)."
-        },
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Add minimal styles for validation states (e.g., subtle outline/text) that fit the paper form aesthetic and keep the table readable."
-        }
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "summary": "Provide a print-friendly view preserving form-like borders/headings and fitting typical A4/Letter pages.",
-      "acceptanceCriteria": [
-        "A 'Print' action triggers the browser print dialog.",
-        "The printed layout fits on typical A4/Letter with minimal clipping and preserves the form-like appearance (borders and headings visible)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add a visible 'Print' action (use the shadcn-ui Button component) that triggers the browser print dialog. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Add @media print rules to hide non-print controls, preserve borders/headings, and adjust scaling/margins so the report-card form prints cleanly on A4/Letter with minimal clipping."
-        },
-        {
-          "path": "frontend/src/components/ReportCard/ReportCardLayout.tsx",
-          "operation": "modify",
-          "description": "Ensure the layout container uses print-safe sizing (fixed canvas with optional screen scrolling, and print scaling) so the rendered form matches the image when printed."
-        }
-      ]
-    },
-    {
-      "id": "REQ-8",
-      "summary": "Apply a consistent paper report-card theme across the page (warm background, dark text, subtle borders, form-like typography).",
-      "acceptanceCriteria": [
-        "The app uses a consistent, form-like theme (not blue/purple by default).",
-        "Typography and spacing feel like a printable academic form.",
-        "Inputs are styled to blend into the form while remaining clearly editable on screen."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Set global form-like theme primitives (warm off-white page background, dark gray/black text, subtle border color, print-friendly font sizing) and ensure inputs visually blend with the form."
-        },
-        {
-          "path": "frontend/tailwind.config.js",
-          "operation": "modify",
-          "description": "Extend theme tokens (colors/borders/typography as needed) to support a paper report-card aesthetic consistently across the UI."
-        },
-        {
-          "path": "frontend/src/components/ReportCard/ReportCardLayout.tsx",
-          "operation": "modify",
-          "description": "Apply consistent Tailwind classes for spacing, typography, and border rendering so the overall composition resembles a printed academic form."
-        }
-      ]
-    },
-    {
-      "id": "REQ-9",
-      "summary": "Use a generated background report-card form image as a static asset and align inputs/values on top of it; allow horizontal scrolling on smaller screens.",
-      "acceptanceCriteria": [
-        "A generated background image is stored under frontend/public/assets/generated and is used in the UI.",
-        "Inputs/values align to the background grid such that the overall appearance closely matches the uploaded form.",
-        "The UI remains usable on common screen sizes (at minimum: desktop widths), with horizontal scrolling allowed if necessary to preserve alignment."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/public/assets/generated/report-card-form.dim_1600x1100.png",
-          "operation": "create",
-          "description": "Add the generated clean report-card form background image asset to be used as the UI background: frontend/public/assets/generated/report-card-form.dim_1600x1100.png."
-        },
-        {
-          "path": "frontend/src/components/ReportCard/ReportCardLayout.tsx",
-          "operation": "modify",
-          "description": "Render the background form image as a fixed-size canvas backdrop and position the table/fields/attendance/result content on top with alignment tuned to match the grid; enable horizontal scrolling when needed to preserve alignment."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Wrap the report-card layout in an overflow container suitable for desktop-first alignment, ensuring the background form and overlayed inputs/values remain usable."
+          "description": "Add print-only typography/spacing utility classes to reduce vertical footprint: tighten section title margins, container padding, row gaps, and input/textarea heights for print only; preserve on-screen layout and do not change any data handling."
         }
       ]
     }

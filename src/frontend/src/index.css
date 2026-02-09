@@ -66,13 +66,20 @@
 /* Print styles */
 @media print {
     @page {
-        size: A4;
-        margin: 1cm;
+        size: A4 landscape;
+        margin: 0.5cm;
     }
 
     body {
         print-color-adjust: exact;
         -webkit-print-color-adjust: exact;
+        font-size: 10px;
+        line-height: 1.2;
+    }
+
+    /* Constrain content to fit landscape A4 */
+    .print\:max-w-full {
+        max-width: 100% !important;
     }
 
     .print\:hidden {
@@ -81,6 +88,10 @@
 
     .print\:bg-white {
         background-color: white !important;
+    }
+
+    .print\:bg-transparent {
+        background-color: transparent !important;
     }
 
     .print\:shadow-none {
@@ -96,31 +107,179 @@
         padding-bottom: 0 !important;
     }
 
-    .print\:p-6 {
-        padding: 1.5rem !important;
+    .print\:p-4 {
+        padding: 0.5rem !important;
+    }
+
+    .print\:p-3 {
+        padding: 0.4rem !important;
+    }
+
+    .print\:p-2 {
+        padding: 0.3rem !important;
+    }
+
+    .print\:p-1 {
+        padding: 0.2rem !important;
+    }
+
+    .print\:px-0 {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .print\:mx-0 {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .print\:mb-0 {
+        margin-bottom: 0 !important;
+    }
+
+    .print\:mb-1 {
+        margin-bottom: 0.2rem !important;
+    }
+
+    .print\:mb-2 {
+        margin-bottom: 0.3rem !important;
+    }
+
+    .print\:mb-3 {
+        margin-bottom: 0.4rem !important;
+    }
+
+    .print\:mb-4 {
+        margin-bottom: 0.5rem !important;
+    }
+
+    .print\:mt-2 {
+        margin-top: 0.3rem !important;
+    }
+
+    .print\:mt-4 {
+        margin-top: 0.5rem !important;
+    }
+
+    .print\:mt-6 {
+        margin-top: 0.75rem !important;
+    }
+
+    .print\:pt-4 {
+        padding-top: 0.5rem !important;
+    }
+
+    .print\:gap-3 {
+        gap: 0.4rem !important;
+    }
+
+    .print\:gap-4 {
+        gap: 0.5rem !important;
+    }
+
+    .print\:space-y-2 > * + * {
+        margin-top: 0.3rem !important;
+    }
+
+    .print\:space-y-3 > * + * {
+        margin-top: 0.4rem !important;
+    }
+
+    .print\:text-3xl {
+        font-size: 1.2rem !important;
+        line-height: 1.3 !important;
     }
 
     .print\:text-2xl {
-        font-size: 1.5rem !important;
-        line-height: 2rem !important;
+        font-size: 1rem !important;
+        line-height: 1.2 !important;
     }
 
     .print\:text-lg {
-        font-size: 1.125rem !important;
-        line-height: 1.75rem !important;
+        font-size: 0.85rem !important;
+        line-height: 1.1 !important;
+    }
+
+    .print\:text-base {
+        font-size: 0.75rem !important;
+        line-height: 1.1 !important;
     }
 
     .print\:text-xs {
-        font-size: 0.75rem !important;
-        line-height: 1rem !important;
+        font-size: 0.65rem !important;
+        line-height: 1 !important;
+    }
+
+    .print\:text-sm {
+        font-size: 0.7rem !important;
+        line-height: 1 !important;
     }
 
     .print\:mb-6 {
-        margin-bottom: 1.5rem !important;
+        margin-bottom: 0.75rem !important;
     }
 
     .print\:opacity-5 {
         opacity: 0.05 !important;
+    }
+
+    .print\:border {
+        border-width: 1px !important;
+    }
+
+    .print\:block {
+        display: block !important;
+    }
+
+    .print\:static {
+        position: static !important;
+    }
+
+    .print\:h-8 {
+        height: 2rem !important;
+    }
+
+    .print\:h-12 {
+        height: 3rem !important;
+    }
+
+    .print\:min-h-\[60px\] {
+        min-height: 60px !important;
+    }
+
+    /* Make inputs look like plain text in print */
+    input[type="text"],
+    input[type="number"],
+    .print-input-as-text {
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        outline: none !important;
+        padding: 0.15rem !important;
+        -webkit-appearance: none !important;
+        appearance: none !important;
+        font-size: 0.65rem !important;
+        line-height: 1 !important;
+    }
+
+    textarea {
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        outline: none !important;
+        padding: 0.15rem !important;
+        font-size: 0.65rem !important;
+        line-height: 1.1 !important;
+        min-height: 60px !important;
+    }
+
+    /* Remove focus rings and control chrome in print */
+    input:focus,
+    textarea:focus,
+    select:focus {
+        outline: none !important;
+        box-shadow: none !important;
+        border-color: oklch(0.7 0 0) !important;
     }
 
     /* Ensure table borders print */
@@ -130,13 +289,22 @@
         border-color: oklch(0.3 0 0) !important;
     }
 
+    /* Tighter table cell padding */
+    table th,
+    table td {
+        padding: 0.2rem !important;
+        font-size: 0.65rem !important;
+        line-height: 1 !important;
+    }
+
     /* Ensure background colors print */
     thead tr,
     .bg-\[oklch\(0\.88_0\.02_250\)\],
     .bg-\[oklch\(0\.92_0\.01_250\)\],
     .bg-\[oklch\(0\.85_0\.03_250\)\],
     .bg-\[oklch\(0\.82_0\.03_250\)\],
-    .bg-\[oklch\(0\.78_0\.04_250\)\] {
+    .bg-\[oklch\(0\.78_0\.04_250\)\],
+    .bg-\[oklch\(0\.98_0\.005_250\)\] {
         print-color-adjust: exact;
         -webkit-print-color-adjust: exact;
     }

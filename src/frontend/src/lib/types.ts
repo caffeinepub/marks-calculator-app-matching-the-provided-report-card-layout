@@ -28,3 +28,26 @@ export interface ColumnTotals {
   z: number | null;
   total100: number | null;
 }
+
+export interface ReportCardState {
+  studentName?: string;
+  class?: string;
+  rollNo?: string;
+  subjects: SubjectMarks[];
+  fields: FieldMarks[];
+  attendance: AttendanceData;
+  result: string;
+  remarks: string;
+}
+
+export interface ReportCardExportPayload {
+  version: string;
+  studentName?: string;
+  class?: string;
+  rollNo?: string;
+  subjects: SubjectMarks[];
+  fields: FieldMarks[];
+  attendance: AttendanceData;
+  result: string;
+  remarks: string;
+}

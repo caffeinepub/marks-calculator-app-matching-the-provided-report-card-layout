@@ -2,135 +2,12 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-recreate-the-report-card-table-layout-shown-in-the-uploaded-image-as-the-main-screen-of-the-app-keeping-headings-sections-and-column-structure-visually-consistent-with-the-image",
-      "featureTitle": "Recreate the report-card/table layout shown in the uploaded image as the main screen of the app, keeping headings, sections, and column structure visually consistent with the image.",
+      "featureId": "feature-adjust-print-specific-typography-and-spacing-so-the-entire-report-card-reliably-fits-on-a-single-a4-landscape-page-by-making-fonts-smaller-and-tightening-vertical-spacing-where-needed-without-changing-the-table-structure-or-calculations",
+      "featureTitle": "Adjust print-specific typography and spacing so the entire report card reliably fits on a single A4 landscape page by making fonts smaller (and tightening vertical spacing where needed) without changing the table structure or calculations.",
       "files": [
         "frontend/src/App.tsx",
         "frontend/src/components/ReportCard/AttendanceAndResult.tsx",
         "frontend/src/components/ReportCard/CoScholasticFields.tsx",
-        "frontend/src/components/ReportCard/ReportCardLayout.tsx",
-        "frontend/src/components/ReportCard/ScholasticTable.tsx",
-        "frontend/src/index.css",
-        "frontend/src/main.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-1"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-provide-editable-inputs-for-entering-marks-per-subject-for-1st-unit-test-2nd-unit-test-half-yearly-out-of-100-and-annual-exam-out-of-100-the-rest-of-the-columns-must-auto-calculate-and-render-in-place-in-the-same-row",
-      "featureTitle": "Provide editable inputs for entering marks per subject for: 1st Unit Test, 2nd Unit Test, Half Yearly (out of 100), and Annual Exam (out of 100). The rest of the columns must auto-calculate and render in-place in the same row.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/ReportCard/ScholasticTable.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-2"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-implement-the-calculations-shown-by-the-table-headers-a-total-marks-under-examinations-1st-unit-test-2nd-unit-test-b-x-20-of-ut-total-marks-c-y-30-of-half-yearly-marks-d-z-50-of-annual-exam-marks-e-total-100-marks-x-y-z",
-      "featureTitle": "Implement the calculations shown by the table headers: (a) Total Marks under EXAMINATIONS = 1st Unit Test + 2nd Unit Test; (b) X = 20% of UT Total Marks; (c) Y = 30% of Half Yearly marks; (d) Z = 50% of Annual Exam marks; (e) Total 100 Marks = X + Y + Z.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/ReportCard/ScholasticTable.tsx",
-        "frontend/src/lib/marks.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-3"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-include-the-same-subject-list-as-shown-in-the-image-as-default-rows-english-english-ii-mathematics-hindi-evs-g-k-social-studies-science-science-assamese-computer-drawing-conversation-health-physical-education-plus-a-total-row-and-a-percentage-row",
-      "featureTitle": "Include the same subject list as shown in the image as default rows: English, English II, Mathematics, Hindi, EVS, G.K., Social Studies/Science, Science, Assamese, Computer, Drawing, Conversation, Health & Physical Education; plus a 'Total' row and a 'Percentage' row.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/ReportCard/ScholasticTable.tsx",
-        "frontend/src/lib/defaultData.ts",
-        "frontend/src/lib/marks.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-4"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-editing-for-the-lower-section-inputs-shown-in-the-image-a-fields-table-items-work-experience-regularity-punctuality-cleanliness-indigenous-sports-school-programmes-visual-and-performing-art-with-half-yearly-and-annual-entries-b-attendance-records-total-working-days-and-present-days-c-result-and-remarks-text-entries",
-      "featureTitle": "Add editing for the lower-section inputs shown in the image: (a) 'Fields' table items (Work Experience, Regularity, Punctuality, Cleanliness, Indigenous Sports, School Programmes, Visual and Performing Art) with Half Yearly and Annual entries; (b) Attendance Records: Total Working Days and Present Days; (c) Result and Remarks text entries.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/ReportCard/AttendanceAndResult.tsx",
-        "frontend/src/components/ReportCard/CoScholasticFields.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-5"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-basic-validation-and-inline-feedback-marks-should-be-within-0-100-for-half-yearly-and-annual-unit-test-inputs-should-be-non-negative-and-clearly-labeled-if-max-is-unknown-do-not-enforce-an-upper-bound-for-ut-inputs-but-still-prevent-negatives",
-      "featureTitle": "Add basic validation and inline feedback: marks should be within 0–100 for Half Yearly and Annual; Unit Test inputs should be non-negative and clearly labeled (if max is unknown, do not enforce an upper bound for UT inputs, but still prevent negatives).",
-      "files": [
-        "frontend/src/components/ReportCard/ScholasticTable.tsx",
-        "frontend/src/index.css",
-        "frontend/src/lib/marks.ts",
-        "frontend/src/lib/validation.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-6"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-provide-a-print-friendly-view-so-the-filled-form-can-be-printed-from-the-browser-while-keeping-the-output-format-closely-matching-the-image-table-borders-spacing-and-headings-retained",
-      "featureTitle": "Provide a Print-friendly view so the filled form can be printed from the browser while keeping the output format closely matching the image (table borders, spacing, and headings retained).",
-      "files": [
-        "frontend/src/App.tsx",
         "frontend/src/components/ReportCard/ReportCardLayout.tsx",
         "frontend/src/index.css"
       ],
@@ -142,46 +19,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-7"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-choose-and-apply-a-coherent-visual-theme-that-matches-a-paper-report-card-aesthetic-e-g-warm-off-white-background-dark-gray-black-text-subtle-border-lines-and-enforce-it-consistently-across-the-page",
-      "featureTitle": "Choose and apply a coherent visual theme that matches a paper report-card aesthetic (e.g., warm off-white background, dark gray/black text, subtle border lines), and enforce it consistently across the page.",
-      "files": [
-        "frontend/src/components/ReportCard/ReportCardLayout.tsx",
-        "frontend/src/index.css",
-        "frontend/tailwind.config.js"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-8"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-use-a-generated-clean-background-form-image-matching-the-provided-layout-as-a-static-asset-and-render-inputs-values-aligned-on-top-of-it-so-the-on-screen-output-closely-resembles-the-image",
-      "featureTitle": "Use a generated clean background form image (matching the provided layout) as a static asset and render inputs/values aligned on top of it so the on-screen output closely resembles the image.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/ReportCard/ReportCardLayout.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-9"
+        "REQ-23"
       ],
       "confidence": "high"
     }

@@ -1,182 +1,39 @@
 {
   "kind": "build_request",
-  "title": "Marks calculator app matching the provided report-card layout",
+  "title": "Reduce print font sizes so the report card fits on a single A4 landscape page",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-1",
-      "text": "Recreate the report-card/table layout shown in the uploaded image as the main screen of the app, keeping headings, sections, and column structure visually consistent with the image.",
+      "id": "REQ-23",
+      "text": "Adjust print-specific typography and spacing so the entire report card reliably fits on a single A4 landscape page by making fonts smaller (and tightening vertical spacing where needed) without changing the table structure or calculations.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-2"
+          "msg-6"
         ],
         "quotes": [
-          "Create an app for me using the image in which it does the calculation itself i just enter the marks and the output should remain as provided in IMAGE"
+          "Why are you facing the problem just make the fonts small so that everything can fit in a single page"
         ]
       },
       "acceptanceCriteria": [
-        "The UI contains a top title similar to the image (e.g., 'ACADEMIC PERFORMANCE' and 'SCHOLASTIC AREAS').",
-        "The main table contains the same column groups as the image: SUBJECTS; EXAMINATIONS (1st Unit Test, 2nd Unit Test, Total Marks); HALF YEARLY 100 Marks; ANNUAL EXAM 100 Marks; and computed columns for 20% of UT (X), 30% of HY (Y), 50% of AE (Z), and Total 100 Marks (X+Y+Z).",
-        "The UI includes the lower sections present in the image: a 'Fields' table (Half Yearly/Annual), an 'Attendance Records' box (Total Working Days/Present Days), and 'Result'/'Remarks' lines, plus signature placeholders for 'Class Teacher' and 'Principal'."
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "text": "Provide editable inputs for entering marks per subject for: 1st Unit Test, 2nd Unit Test, Half Yearly (out of 100), and Annual Exam (out of 100). The rest of the columns must auto-calculate and render in-place in the same row.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "i just enter the marks and the output should remain as provided in IMAGE"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Each subject row has numeric inputs for 1st Unit Test, 2nd Unit Test, Half Yearly, and Annual Exam.",
-        "Inputs prevent non-numeric values and allow clearing a value.",
-        "Changing any input immediately updates the computed columns for that row without a page reload."
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "text": "Implement the calculations shown by the table headers: (a) Total Marks under EXAMINATIONS = 1st Unit Test + 2nd Unit Test; (b) X = 20% of UT Total Marks; (c) Y = 30% of Half Yearly marks; (d) Z = 50% of Annual Exam marks; (e) Total 100 Marks = X + Y + Z.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "it does the calculation itself"
-        ]
-      },
-      "acceptanceCriteria": [
-        "For any row, UT Total Marks equals UT1 + UT2.",
-        "For any row, X equals 0.2 * (UT Total Marks).",
-        "For any row, Y equals 0.3 * (Half Yearly marks).",
-        "For any row, Z equals 0.5 * (Annual Exam marks).",
-        "For any row, Total 100 equals X+Y+Z.",
-        "Displayed computed values are consistently rounded (choose one approach and apply it everywhere, e.g., to 2 decimal places or nearest integer)."
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "text": "Include the same subject list as shown in the image as default rows: English, English II, Mathematics, Hindi, EVS, G.K., Social Studies/Science, Science, Assamese, Computer, Drawing, Conversation, Health & Physical Education; plus a 'Total' row and a 'Percentage' row.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "using the image"
-        ]
-      },
-      "acceptanceCriteria": [
-        "All listed subjects appear as separate rows by default.",
-        "A 'Total' row sums each numeric column across subjects (including computed columns).",
-        "A 'Percentage' row computes overall percentage based on the summed 'Total 100 Marks' across subjects divided by (number_of_subjects * 100) * 100."
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "text": "Add editing for the lower-section inputs shown in the image: (a) 'Fields' table items (Work Experience, Regularity, Punctuality, Cleanliness, Indigenous Sports, School Programmes, Visual and Performing Art) with Half Yearly and Annual entries; (b) Attendance Records: Total Working Days and Present Days; (c) Result and Remarks text entries.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "i just enter the marks"
-        ]
-      },
-      "acceptanceCriteria": [
-        "All listed 'Fields' items are editable for both Half Yearly and Annual columns.",
-        "Attendance records allow numeric input for working days and present days.",
-        "Result and Remarks are editable text fields.",
-        "All these values render in a layout consistent with the image sections."
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "text": "Add basic validation and inline feedback: marks should be within 0–100 for Half Yearly and Annual; Unit Test inputs should be non-negative and clearly labeled (if max is unknown, do not enforce an upper bound for UT inputs, but still prevent negatives).",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Half Yearly and Annual inputs outside 0–100 are flagged and excluded from calculations until corrected (or clamped—pick one behavior and apply consistently).",
-        "Unit Test inputs do not allow negative values.",
-        "Validation messages are in English and do not break the table layout."
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "text": "Provide a Print-friendly view so the filled form can be printed from the browser while keeping the output format closely matching the image (table borders, spacing, and headings retained).",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "the output should remain as provided in IMAGE"
-        ]
-      },
-      "acceptanceCriteria": [
-        "A 'Print' action triggers the browser print dialog.",
-        "The printed layout fits on typical A4/Letter with minimal clipping and preserves the form-like appearance (borders and headings visible)."
-      ]
-    },
-    {
-      "id": "REQ-8",
-      "text": "Choose and apply a coherent visual theme that matches a paper report-card aesthetic (e.g., warm off-white background, dark gray/black text, subtle border lines), and enforce it consistently across the page.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ]
-      },
-      "acceptanceCriteria": [
-        "The app uses a consistent, form-like theme (not blue/purple by default).",
-        "Typography and spacing feel like a printable academic form.",
-        "Inputs are styled to blend into the form while remaining clearly editable on screen."
-      ]
-    },
-    {
-      "id": "REQ-9",
-      "text": "Use a generated clean background form image (matching the provided layout) as a static asset and render inputs/values aligned on top of it so the on-screen output closely resembles the image.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "using the image"
-        ]
-      },
-      "acceptanceCriteria": [
-        "A generated background image is stored under frontend/public/assets/generated and is used in the UI.",
-        "Inputs/values align to the background grid such that the overall appearance closely matches the uploaded form.",
-        "The UI remains usable on common screen sizes (at minimum: desktop widths), with horizontal scrolling allowed if necessary to preserve alignment."
+        "When using the browser Print dialog, the report card prints on exactly one A4 landscape page (no second page).",
+        "Printed output is not clipped on any edge; all sections (header, scholastic table, co-scholastic fields, attendance/result/remarks, signatures) remain visible.",
+        "Font sizes in print are reduced compared to on-screen where needed, while keeping the layout readable and visually consistent with the existing report-card style.",
+        "No changes to marks calculations, subject rows, export/import/reset behavior, or non-print on-screen layout besides any necessary print-only adjustments."
       ]
     }
   ],
   "constraints": [
-    "Use English for all user-facing text.",
-    "Frontend must be React + TypeScript with Tailwind and compose existing UI components without editing any immutable paths.",
-    "Backend must remain a single Motoko actor if used; do not introduce additional backend services."
+    "Frontend immutable paths must not be edited: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui.",
+    "Keep the backend as a single Motoko actor; no backend changes are required for this request."
   ],
   "nonGoals": [
-    "Internet Identity authentication.",
-    "Multi-student record management, user accounts, or long-term persistence across devices.",
-    "Integrations with external databases, spreadsheets, or third-party APIs."
+    "Retrying or diagnosing deployment/build pipeline errors.",
+    "Changing the report card’s data model, calculations, validations, or subject/field lists.",
+    "Altering the table column structure or removing sections to make it fit."
   ],
   "imageRequirements": {
-    "required": [
-      "Clean report-card form background with table lines and headings similar to the uploaded image, no handwritten marks, no logos (report-card-form.dim_1600x1100.png)"
-    ],
+    "required": [],
     "edits": []
   }
 }

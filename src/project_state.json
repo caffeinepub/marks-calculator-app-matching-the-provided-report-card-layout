@@ -1,11 +1,18 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 3,
+  "projectStateVersion": 17,
   "summary": "Build an app (UI based on a provided image) that lets the user enter marks and automatically calculates results, keeping the output format identical to the image.",
-  "architectural_notes": [],
-  "known_issues": [],
-  "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Clean report-card form background with table lines and headings similar to the uploaded image, no handwritten marks, no logos (report-card-form.dim_1600x1100.png)",
+  "architectural_notes": [
+    "Print CSS must enforce A4 landscape and scale/fit content to one page (avoid page breaks; use @page size: A4 landscape and page-break controls).",
+    "To ensure the entire report card fits on a single A4 landscape page, adjust print-specific typography (e.g., smaller font sizes/line-heights) and/or apply a print-only scale transform in CSS while preserving the table structure."
+  ],
+  "known_issues": [
+    "UI is missing the School Name and Student Name fields/columns shown in the reference layout.",
+    "Subject rows/marks are not editable as required (inputs not editable).",
+    "School Name should be fixed at the top of the layout (header positioning not matching the reference).",
+    "Duplicate School Name column/field appears twice in the layout; needs one removed."
+  ],
+  "isFixRequest": true,
   "existing_features": [
     {
       "id": "feature-recreate-the-report-card-table-layout-shown-in-the-uploaded-image-as-the-main-screen-of-the-app-keeping-headings-sections-and-column-structure-visually-consistent-with-the-image",
@@ -78,12 +85,154 @@
         "REQ-9"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-add-an-in-app-data-export-feature-that-downloads-the-currently-filled-report-card-data-scholastic-marks-co-scholastic-fields-attendance-result-remarks-as-a-single-json-file-from-the-browser",
+      "title": "Add an in-app data export feature that downloads the currently filled report-card data (scholastic marks, co-scholastic fields, attendance, result, remarks) as a single JSON file from the browser.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-in-app-data-import-feature-that-allows-the-user-to-select-a-previously-exported-json-file-and-restore-the-entire-report-card-state-into-the-form",
+      "title": "Add an in-app data import feature that allows the user to select a previously exported JSON file and restore the entire report-card state into the form.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-reset-clear-action-that-restores-the-app-to-its-default-initial-state-default-subject-list-rows-default-co-scholastic-fields-and-empty-attendance-result-remarks",
+      "title": "Add a reset/clear action that restores the app to its default initial state (default subject list/rows, default co-scholastic fields, and empty attendance/result/remarks).",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-editable-header-fields-for-school-name-and-student-name-to-the-report-card-screen-and-display-them-in-a-print-friendly-way-consistent-with-the-paper-report-card-layout",
+      "title": "Add editable header fields for School Name and Student Name to the report card screen, and display them in a print-friendly way consistent with the paper report-card layout.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-persist-school-name-and-student-name-in-the-app-state-and-include-them-in-export-json-import-json-restore-and-reset-behavior-reset-clears-them-to-empty",
+      "title": "Persist School Name and Student Name in the app state and include them in Export JSON, Import JSON restore, and Reset behavior (reset clears them to empty).",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-make-the-subject-name-cells-in-the-scholastic-table-editable-so-users-can-change-subject-titles-directly-in-the-table",
+      "title": "Make the Subject name cells in the scholastic table editable so users can change subject titles directly in the table.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-make-the-school-name-area-appear-as-a-fixed-sticky-header-at-the-top-of-the-report-card-layout-so-it-stays-at-the-top-while-the-user-scrolls-the-page-without-overlapping-the-rest-of-the-content-ensure-the-fixed-behavior-is-disabled-for-print-so-the-printed-output-remains-laid-out-normally",
+      "title": "Make the School Name area appear as a fixed (sticky) header at the top of the report card layout so it stays at the top while the user scrolls the page, without overlapping the rest of the content. Ensure the fixed behavior is disabled for print so the printed output remains laid out normally.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-the-school-name-as-a-bold-centered-line-above-the-academic-performance-heading-using-the-exact-text-vardhman-public-school-the-on-screen-and-printed-versions-must-both-show-this-school-name-above-the-academic-performance-section",
+      "title": "Display the school name as a bold, centered line above the “ACADEMIC PERFORMANCE” heading, using the exact text “VARDHMAN PUBLIC SCHOOL”. The on-screen and printed versions must both show this school name above the Academic Performance section.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-print-formatting-so-the-browser-print-output-is-a4-paper-in-landscape-orientation-and-ensure-the-report-card-layout-fits-within-the-printable-area-without-being-clipped",
+      "title": "Update print formatting so the browser print output is A4 paper in Landscape orientation, and ensure the report-card layout fits within the printable area without being clipped.",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-duplicate-editable-school-name-field-column-from-the-report-card-ui-so-that-school-name-is-not-shown-twice-keep-the-existing-bold-centered-header-text-vardhman-public-school-above-the-academic-performance-heading-in-both-on-screen-and-print-views",
+      "title": "Remove the duplicate editable \"School Name\" field/column from the report card UI so that School Name is not shown twice. Keep the existing bold centered header text \"VARDHMAN PUBLIC SCHOOL\" above the “ACADEMIC PERFORMANCE” heading in both on-screen and print views.",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-two-new-editable-header-fields-to-the-report-card-layout-class-and-roll-no-these-fields-must-render-as-inputs-on-screen-and-as-plain-text-placeholders-values-in-print-similar-behavior-to-the-existing-student-name-print-behavior",
+      "title": "Add two new editable header fields to the report card layout: \"Class\" and \"Roll No\". These fields must render as inputs on screen and as plain text placeholders/values in print (similar behavior to the existing Student Name print behavior).",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-persist-class-and-roll-no-in-the-app-state-and-include-them-in-json-export-import-reset-flows-import-must-be-backward-compatible-with-older-json-files-that-do-not-contain-these-fields",
+      "title": "Persist \"Class\" and \"Roll No\" in the app state and include them in JSON export/import/reset flows. Import must be backward-compatible with older JSON files that do not contain these fields.",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-print-layout-so-the-entire-report-card-prints-on-a-single-a4-page-in-landscape-orientation-without-clipping-or-spilling-onto-a-second-page-fit-to-one-page-behavior-while-preserving-the-existing-visual-layout-and-table-structure",
+      "title": "Update the print layout so the entire report card prints on a single A4 page in landscape orientation without clipping or spilling onto a second page (fit-to-one-page behavior), while preserving the existing visual layout and table structure.",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-adjust-print-specific-typography-and-spacing-so-the-entire-report-card-reliably-fits-on-a-single-a4-landscape-page-by-making-fonts-smaller-and-tightening-vertical-spacing-where-needed-without-changing-the-table-structure-or-calculations",
+      "title": "Adjust print-specific typography and spacing so the entire report card reliably fits on a single A4 landscape page by making fonts smaller (and tightening vertical spacing where needed) without changing the table structure or calculations.",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
     {
       "id": "AR-1",
       "summary": "Create an app UI from the provided image where users enter marks and the app auto-calculates results, keeping the output layout identical to the image",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Make the School Name appear as a fixed header at the top of the report card layout (not shifting/moving), consistent with the reference image",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Place the School Name above the Academic Performance section and render it as bold text with the exact value \"VARDHMAN PUBLIC SCHOOL\"",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Ensure the print/output page formats to A4 paper in Landscape orientation (print-friendly)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Remove the duplicate School Name column/field (currently shown twice) and add two new header fields/columns: Class and Roll No.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Ensure the print/output renders on a single A4 page in landscape orientation (fit-to-one-page, avoid page breaks/clipping)",
       "reqIds": [],
       "status": "pending"
     }

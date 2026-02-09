@@ -1,16 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Build a marks calculator app that visually matches the uploaded report-card layout, allowing users to enter marks and see all derived totals/percentages update automatically, with a print-friendly output.
+**Goal:** Ensure the report card prints on exactly one A4 landscape page by reducing print-only font sizes and tightening print spacing as needed, without changing the table structure or any calculations.
 
 **Planned changes:**
-- Recreate the report-card screen layout (headings, main marks table, lower “Fields”, “Attendance Records”, “Result/Remarks”, and signature placeholders) to closely match the uploaded image.
-- Provide per-subject numeric inputs for 1st Unit Test, 2nd Unit Test, Half Yearly (0–100), and Annual Exam (0–100), with live in-row calculations.
-- Implement calculations: UT Total = UT1 + UT2; X = 20% of UT Total; Y = 30% of Half Yearly; Z = 50% of Annual; Total 100 = X + Y + Z, with consistent rounding.
-- Include default subject rows exactly as in the image, plus “Total” row (sums columns) and “Percentage” row (based on summed Total 100).
-- Add editable lower-section inputs: “Fields” (Half Yearly/Annual), Attendance (working/present days), Result, and Remarks.
-- Add validation with inline feedback: HY/Annual must be 0–100 (invalid excluded from calculations until corrected); Unit Tests must be non-negative.
-- Add a Print action that opens the browser print dialog and preserves borders/headings/spacing for A4/Letter printing.
-- Apply a paper report-card visual theme and use a generated static background form image with aligned overlays for inputs/values.
+- Update print-specific CSS (e.g., `@media print`) to reduce typography sizes for the report card sections where necessary.
+- Tighten print-only vertical spacing (margins/padding/line-height) to prevent overflow onto a second page while keeping the layout readable and consistent.
+- Verify print output in the browser print dialog for A4 landscape so no content is clipped and all sections remain visible on one page.
 
-**User-visible outcome:** Users can fill in marks and related report-card fields on a screen that matches the provided form, see totals/percentages computed instantly, and print the completed report in a form-like layout.
+**User-visible outcome:** When printing the report card from the browser in A4 landscape, it fits on a single page with all sections visible, using smaller print-only fonts and spacing while keeping the on-screen layout unchanged.

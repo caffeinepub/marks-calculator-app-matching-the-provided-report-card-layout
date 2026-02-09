@@ -106,8 +106,14 @@ export function ScholasticTable({ subjectMarks, onUpdate }: ScholasticTableProps
 
             return (
               <tr key={index} className="hover:bg-[oklch(0.95_0.01_250)]">
-                <td className="border border-[oklch(0.3_0_0)] p-2 font-medium text-[oklch(0.25_0_0)]">
-                  {subject.name}
+                <td className="border border-[oklch(0.3_0_0)] p-1">
+                  <Input
+                    type="text"
+                    value={subject.name}
+                    onChange={(e) => onUpdate(index, 'name', e.target.value)}
+                    className="h-8 border-[oklch(0.7_0_0)] focus:border-[oklch(0.4_0.1_250)] font-medium text-[oklch(0.25_0_0)] print-input-as-text"
+                    placeholder="Subject name"
+                  />
                 </td>
                 <td className="border border-[oklch(0.3_0_0)] p-1">
                   <Input
@@ -115,7 +121,7 @@ export function ScholasticTable({ subjectMarks, onUpdate }: ScholasticTableProps
                     min="0"
                     value={subject.ut1}
                     onChange={(e) => onUpdate(index, 'ut1', e.target.value)}
-                    className="h-8 text-center border-[oklch(0.7_0_0)] focus:border-[oklch(0.4_0.1_250)]"
+                    className="h-8 text-center border-[oklch(0.7_0_0)] focus:border-[oklch(0.4_0.1_250)] print-input-as-text"
                     placeholder="0"
                   />
                 </td>
@@ -125,7 +131,7 @@ export function ScholasticTable({ subjectMarks, onUpdate }: ScholasticTableProps
                     min="0"
                     value={subject.ut2}
                     onChange={(e) => onUpdate(index, 'ut2', e.target.value)}
-                    className="h-8 text-center border-[oklch(0.7_0_0)] focus:border-[oklch(0.4_0.1_250)]"
+                    className="h-8 text-center border-[oklch(0.7_0_0)] focus:border-[oklch(0.4_0.1_250)] print-input-as-text"
                     placeholder="0"
                   />
                 </td>
@@ -140,7 +146,7 @@ export function ScholasticTable({ subjectMarks, onUpdate }: ScholasticTableProps
                       max="100"
                       value={subject.halfYearly}
                       onChange={(e) => onUpdate(index, 'halfYearly', e.target.value)}
-                      className={`h-8 text-center border-[oklch(0.7_0_0)] focus:border-[oklch(0.4_0.1_250)] ${
+                      className={`h-8 text-center border-[oklch(0.7_0_0)] focus:border-[oklch(0.4_0.1_250)] print-input-as-text ${
                         !hyValidation.isValid && subject.halfYearly
                           ? 'border-[oklch(0.6_0.2_30)] bg-[oklch(0.95_0.05_30)]'
                           : ''
@@ -148,7 +154,7 @@ export function ScholasticTable({ subjectMarks, onUpdate }: ScholasticTableProps
                       placeholder="0-100"
                     />
                     {!hyValidation.isValid && subject.halfYearly && (
-                      <p className="text-xs text-[oklch(0.5_0.15_30)] mt-0.5">
+                      <p className="text-xs text-[oklch(0.5_0.15_30)] mt-0.5 print:hidden">
                         {hyValidation.error}
                       </p>
                     )}
@@ -162,7 +168,7 @@ export function ScholasticTable({ subjectMarks, onUpdate }: ScholasticTableProps
                       max="100"
                       value={subject.annual}
                       onChange={(e) => onUpdate(index, 'annual', e.target.value)}
-                      className={`h-8 text-center border-[oklch(0.7_0_0)] focus:border-[oklch(0.4_0.1_250)] ${
+                      className={`h-8 text-center border-[oklch(0.7_0_0)] focus:border-[oklch(0.4_0.1_250)] print-input-as-text ${
                         !aeValidation.isValid && subject.annual
                           ? 'border-[oklch(0.6_0.2_30)] bg-[oklch(0.95_0.05_30)]'
                           : ''
@@ -170,7 +176,7 @@ export function ScholasticTable({ subjectMarks, onUpdate }: ScholasticTableProps
                       placeholder="0-100"
                     />
                     {!aeValidation.isValid && subject.annual && (
-                      <p className="text-xs text-[oklch(0.5_0.15_30)] mt-0.5">
+                      <p className="text-xs text-[oklch(0.5_0.15_30)] mt-0.5 print:hidden">
                         {aeValidation.error}
                       </p>
                     )}
