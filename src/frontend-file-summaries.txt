@@ -1,0 +1,17 @@
+{
+  "frontend/src/App.tsx": "Main application component managing state for subject marks, co-scholastic fields, attendance, result, and remarks with print functionality.",
+  "frontend/src/components/ReportCard/ReportCardLayout.tsx": "Layout wrapper component providing the report card structure with header titles and background form image overlay.",
+  "frontend/src/components/ReportCard/ScholasticTable.tsx": "Comprehensive table component displaying all subjects with editable inputs for unit tests, half-yearly, and annual exams, plus auto-calculated weighted scores and totals.",
+  "frontend/src/components/ReportCard/CoScholasticFields.tsx": "Table component for co-scholastic fields (Work Experience, Regularity, etc.) with editable half-yearly and annual grade inputs.",
+  "frontend/src/components/ReportCard/AttendanceAndResult.tsx": "Component managing attendance records (working/present days), result, and remarks sections with appropriate input fields.",
+  "frontend/src/lib/types.ts": "TypeScript type definitions for subject marks, field marks, attendance data, and column totals used throughout the application.",
+  "frontend/src/lib/defaultData.ts": "Default data arrays defining the 13 subjects and 7 co-scholastic fields that populate the report card on initial load.",
+  "frontend/src/lib/marks.ts": "Pure calculation functions for unit test totals, weighted percentages (X, Y, Z), final totals, column aggregations, and overall percentage with consistent number formatting.",
+  "frontend/src/lib/validation.ts": "Validation helper functions ensuring marks are within valid ranges (0-100 for HY/Annual, non-negative for unit tests) with error messages.",
+  "frontend/src/components/ui/button.tsx": "Reusable button component with multiple variants (default, destructive, outline, secondary, ghost, link) and sizes using class-variance-authority.",
+  "frontend/src/components/ui/input.tsx": "Styled input component with consistent border, focus states, and shadow effects matching the form aesthetic.",
+  "frontend/src/components/ui/textarea.tsx": "Multi-line textarea component for remarks and result fields with consistent styling and focus states.",
+  "frontend/src/lib/utils.ts": "Utility function combining clsx and tailwind-merge for conditional className composition.",
+  "frontend/src/index.css": "Global styles with OKLCH color system for light/dark modes, custom report-card theme (warm backgrounds, dark text), and comprehensive print media queries.",
+  "frontend/tailwind.config.js": "Tailwind configuration extending theme with custom colors, Inter font family, border radius tokens, and animation keyframes."
+}

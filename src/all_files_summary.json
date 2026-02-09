@@ -1,0 +1,23 @@
+{
+  "backend/main.mo": "Empty Motoko actor with no methods.",
+  "feature_evidence.json": "Lists implemented features, mapped files, components, and test IDs for the report‑card app.",
+  "frontend-file-summaries.txt": "Prewritten summaries describing the purpose of each frontend source file.",
+  "frontend/index.css": "Tailwind base styles plus custom OKLCH theme variables and print-friendly styling.",
+  "frontend/index.html": "HTML entry point mounting the React app and loading main.tsx.",
+  "frontend/src/App.tsx": "Top-level React component managing mark states, attendance, results, layout, and print action.",
+  "frontend/src/components/ReportCard/AttendanceAndResult.tsx": "Inputs for attendance counts, result text, and remarks with structured styling.",
+  "frontend/src/components/ReportCard/CoScholasticFields.tsx": "Editable table for co‑scholastic field grades (half‑yearly and annual).",
+  "frontend/src/components/ReportCard/ReportCardLayout.tsx": "Layout wrapper adding background image, headers, and container styling for the report card.",
+  "frontend/src/components/ReportCard/ScholasticTable.tsx": "Main marks table handling unit tests, HY/AE inputs, validation, and calculated weighted totals.",
+  "frontend/src/hooks/useActor.ts": "Creates a backend actor based on the current Internet Identity and refreshes dependent queries when the actor changes.",
+  "frontend/src/hooks/useInternetIdentity.ts": "Provides a React context and utilities for managing Internet Identity login, stored identities, and login state.",
+  "frontend/src/index.css": "Defines Tailwind base styles, CSS variables, dark mode settings, and print-specific formatting for the UI.",
+  "frontend/src/lib/defaultData.ts": "Exports default subject and field mark rows used to initialize the report card tables.",
+  "frontend/src/lib/marks.ts": "Contains mark parsing, calculation helpers, and functions to compute totals and percentages across subjects.",
+  "frontend/src/lib/types.ts": "Defines TypeScript interfaces for subjects, fields, attendance data, and computed column totals.",
+  "frontend/src/lib/utils.ts": "Provides a utility for merging class names using clsx and tailwind-merge.",
+  "frontend/src/lib/validation.ts": "Implements basic numeric validation for mark ranges and non‑negative checks.",
+  "frontend/src/main.tsx": "Bootstraps the React app with React Query and Internet Identity providers and loads global styles.",
+  "frontend/tailwind.config.js": "Configures Tailwind theme settings, custom colors, plugins, and animations for the project.",
+  "project_state.json": "Describes project requirements, existing features, and state for building the marks-entry report card app."
+}
