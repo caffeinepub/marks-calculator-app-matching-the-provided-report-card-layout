@@ -1,17 +1,20 @@
-import type { SubjectMarks, ColumnTotals } from './types';
-import { validateMarks } from './validation';
+import type { ColumnTotals, SubjectMarks } from "./types";
+import { validateMarks } from "./validation";
 
 export function parseNumber(value: string): number | null {
-  if (!value || value.trim() === '') return null;
-  const num = parseFloat(value);
-  return isNaN(num) ? null : num;
+  if (!value || value.trim() === "") return null;
+  const num = Number.parseFloat(value);
+  return Number.isNaN(num) ? null : num;
 }
 
 export function formatNumber(value: number): string {
   return value.toFixed(2);
 }
 
-export function calculateUTTotal(ut1: number | null, ut2: number | null): number | null {
+export function calculateUTTotal(
+  ut1: number | null,
+  ut2: number | null,
+): number | null {
   if (ut1 === null && ut2 === null) return null;
   return (ut1 || 0) + (ut2 || 0);
 }
@@ -34,7 +37,7 @@ export function calculateZ(annual: number | null): number | null {
 export function calculateTotal100(
   x: number | null,
   y: number | null,
-  z: number | null
+  z: number | null,
 ): number | null {
   if (x === null && y === null && z === null) return null;
   return (x || 0) + (y || 0) + (z || 0);
@@ -57,7 +60,7 @@ export function calculateColumnTotals(subjects: SubjectMarks[]): ColumnTotals {
   let hasAnyAe = false;
   let hasAnyTotal = false;
 
-  subjects.forEach((subject) => {
+  for (const subject of subjects) {
     const ut1 = parseNumber(subject.ut1);
     const ut2 = parseNumber(subject.ut2);
     const hy = parseNumber(subject.halfYearly);
@@ -103,7 +106,7 @@ export function calculateColumnTotals(subjects: SubjectMarks[]): ColumnTotals {
       total100Sum += total;
       hasAnyTotal = true;
     }
-  });
+  }
 
   return {
     ut1: hasAnyUt1 ? ut1Sum : null,
@@ -120,8 +123,6 @@ export function calculateColumnTotals(subjects: SubjectMarks[]): ColumnTotals {
 
 export function calculatePercentage(total100: number | null): number | null {
   if (total100 === null) return null;
-  // Percentage = (Total marks obtained / Total possible marks) * 100
-  // Total possible marks = 13 subjects * 100 = 1300
-  const totalPossible = 13 * 100;
+  const totalPossible = 11 * 100;
   return (total100 / totalPossible) * 100;
 }

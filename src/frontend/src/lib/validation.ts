@@ -6,7 +6,7 @@ export interface ValidationResult {
 export function validateMarks(
   value: number | null,
   min: number,
-  max: number
+  max: number,
 ): ValidationResult {
   if (value === null) {
     return { isValid: true };
@@ -30,7 +30,7 @@ export function validateNonNegative(value: number | null): ValidationResult {
   if (value < 0) {
     return {
       isValid: false,
-      error: 'Cannot be negative',
+      error: "Cannot be negative",
     };
   }
 

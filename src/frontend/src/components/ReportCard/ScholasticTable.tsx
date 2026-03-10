@@ -1,30 +1,45 @@
-import { Input } from '@/components/ui/input';
+import { Input } from "@/components/ui/input";
 import {
+  calculateColumnTotals,
+  calculatePercentage,
+  calculateTotal100,
   calculateUTTotal,
   calculateX,
   calculateY,
   calculateZ,
-  calculateTotal100,
-  calculateColumnTotals,
-  calculatePercentage,
   formatNumber,
   parseNumber,
-} from '@/lib/marks';
-import { validateMarks } from '@/lib/validation';
-import type { SubjectMarks } from '@/lib/types';
+} from "@/lib/marks";
+import type { SubjectMarks } from "@/lib/types";
+import { validateMarks } from "@/lib/validation";
 
 interface ScholasticTableProps {
   subjectMarks: SubjectMarks[];
   onUpdate: (index: number, field: keyof SubjectMarks, value: string) => void;
 }
 
-export function ScholasticTable({ subjectMarks, onUpdate }: ScholasticTableProps) {
+export function ScholasticTable({
+  subjectMarks,
+  onUpdate,
+}: ScholasticTableProps) {
   const totals = calculateColumnTotals(subjectMarks);
   const percentage = calculatePercentage(totals.total100);
 
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full border-collapse border-2 border-[oklch(0.3_0_0)] text-sm print:text-xs">
+    <div className="overflow-x-auto scholastic-table">
+      <table className="w-full border-collapse border-2 border-[oklch(0.3_0_0)] text-sm print:text-xs table-fixed">
+        <colgroup>
+          <col className="w-[20%]" />
+          <col className="w-[8.89%]" />
+          <col className="w-[8.89%]" />
+          <col className="w-[8.89%]" />
+          <col className="w-[8.89%]" />
+          <col className="w-[8.89%]" />
+          <col className="w-[8.89%]" />
+          <col className="w-[8.89%]" />
+          <col className="w-[8.89%]" />
+          <col className="w-[8.89%]" />
+        </colgroup>
         <thead>
           <tr className="bg-[oklch(0.88_0.02_250)]">
             <th
@@ -43,48 +58,72 @@ export function ScholasticTable({ subjectMarks, onUpdate }: ScholasticTableProps
               rowSpan={2}
               className="border border-[oklch(0.3_0_0)] p-2 text-center font-semibold text-[oklch(0.2_0_0)]"
             >
-              HALF<br />YEARLY<br />100 Marks
+              HALF
+              <br />
+              YEARLY
+              <br />
+              100 Marks
             </th>
             <th
               rowSpan={2}
               className="border border-[oklch(0.3_0_0)] p-2 text-center font-semibold text-[oklch(0.2_0_0)]"
             >
-              ANNUAL<br />EXAM<br />100 Marks
+              ANNUAL
+              <br />
+              EXAM
+              <br />
+              100 Marks
             </th>
             <th
               rowSpan={2}
               className="border border-[oklch(0.3_0_0)] p-2 text-center font-semibold text-[oklch(0.2_0_0)]"
             >
-              20% of UT<br />(X)
+              20% of UT
+              <br />
+              (X)
             </th>
             <th
               rowSpan={2}
               className="border border-[oklch(0.3_0_0)] p-2 text-center font-semibold text-[oklch(0.2_0_0)]"
             >
-              30% of HY<br />(Y)
+              30% of HY
+              <br />
+              (Y)
             </th>
             <th
               rowSpan={2}
               className="border border-[oklch(0.3_0_0)] p-2 text-center font-semibold text-[oklch(0.2_0_0)]"
             >
-              50% of AE<br />(Z)
+              50% of AE
+              <br />
+              (Z)
             </th>
             <th
               rowSpan={2}
               className="border border-[oklch(0.3_0_0)] p-2 text-center font-semibold text-[oklch(0.2_0_0)]"
             >
-              Total 100<br />Marks<br />(X+Y+Z)
+              Total 100
+              <br />
+              Marks
+              <br />
+              (X+Y+Z)
             </th>
           </tr>
           <tr className="bg-[oklch(0.88_0.02_250)]">
             <th className="border border-[oklch(0.3_0_0)] p-2 text-center font-semibold text-[oklch(0.2_0_0)]">
-              1st Unit<br />Test
+              1st Unit
+              <br />
+              Test
             </th>
             <th className="border border-[oklch(0.3_0_0)] p-2 text-center font-semibold text-[oklch(0.2_0_0)]">
-              2nd Unit<br />Test
+              2nd Unit
+              <br />
+              Test
             </th>
             <th className="border border-[oklch(0.3_0_0)] p-2 text-center font-semibold text-[oklch(0.2_0_0)]">
-              Total<br />Marks
+              Total
+              <br />
+              Marks
             </th>
           </tr>
         </thead>
@@ -105,53 +144,58 @@ export function ScholasticTable({ subjectMarks, onUpdate }: ScholasticTableProps
             const total = calculateTotal100(x, y, z);
 
             return (
-              <tr key={index} className="hover:bg-[oklch(0.95_0.01_250)]">
-                <td className="border border-[oklch(0.3_0_0)] p-1">
+              <tr
+                key={subject.name || index}
+                className="hover:bg-[oklch(0.95_0.01_250)]"
+              >
+                <td className="border border-[oklch(0.3_0_0)] p-2 print:p-1">
                   <Input
                     type="text"
                     value={subject.name}
-                    onChange={(e) => onUpdate(index, 'name', e.target.value)}
-                    className="h-8 border-[oklch(0.7_0_0)] focus:border-[oklch(0.4_0.1_250)] font-medium text-[oklch(0.25_0_0)] print-input-as-text"
+                    onChange={(e) => onUpdate(index, "name", e.target.value)}
+                    className="h-12 print:h-auto border-[oklch(0.7_0_0)] focus:border-[oklch(0.4_0.1_250)] font-medium text-[oklch(0.25_0_0)] print-input-as-text"
                     placeholder="Subject name"
                   />
                 </td>
-                <td className="border border-[oklch(0.3_0_0)] p-1">
+                <td className="border border-[oklch(0.3_0_0)] p-2 print:p-1">
                   <Input
                     type="number"
                     min="0"
                     value={subject.ut1}
-                    onChange={(e) => onUpdate(index, 'ut1', e.target.value)}
-                    className="h-8 text-center border-[oklch(0.7_0_0)] focus:border-[oklch(0.4_0.1_250)] print-input-as-text"
-                    placeholder="0"
+                    onChange={(e) => onUpdate(index, "ut1", e.target.value)}
+                    className="h-12 print:h-auto text-center border-[oklch(0.7_0_0)] focus:border-[oklch(0.4_0.1_250)] print-input-as-text"
+                    placeholder=""
                   />
                 </td>
-                <td className="border border-[oklch(0.3_0_0)] p-1">
+                <td className="border border-[oklch(0.3_0_0)] p-2 print:p-1">
                   <Input
                     type="number"
                     min="0"
                     value={subject.ut2}
-                    onChange={(e) => onUpdate(index, 'ut2', e.target.value)}
-                    className="h-8 text-center border-[oklch(0.7_0_0)] focus:border-[oklch(0.4_0.1_250)] print-input-as-text"
-                    placeholder="0"
+                    onChange={(e) => onUpdate(index, "ut2", e.target.value)}
+                    className="h-12 print:h-auto text-center border-[oklch(0.7_0_0)] focus:border-[oklch(0.4_0.1_250)] print-input-as-text"
+                    placeholder=""
                   />
                 </td>
-                <td className="border border-[oklch(0.3_0_0)] p-2 text-center bg-[oklch(0.92_0.01_250)] font-medium text-[oklch(0.25_0_0)]">
-                  {utTotal !== null ? formatNumber(utTotal) : '-'}
+                <td className="border border-[oklch(0.3_0_0)] p-3 print:p-2 text-center bg-[oklch(0.92_0.01_250)] font-medium text-[oklch(0.25_0_0)]">
+                  {utTotal !== null ? formatNumber(utTotal) : ""}
                 </td>
-                <td className="border border-[oklch(0.3_0_0)] p-1">
+                <td className="border border-[oklch(0.3_0_0)] p-2 print:p-1">
                   <div>
                     <Input
                       type="number"
                       min="0"
                       max="100"
                       value={subject.halfYearly}
-                      onChange={(e) => onUpdate(index, 'halfYearly', e.target.value)}
-                      className={`h-8 text-center border-[oklch(0.7_0_0)] focus:border-[oklch(0.4_0.1_250)] print-input-as-text ${
+                      onChange={(e) =>
+                        onUpdate(index, "halfYearly", e.target.value)
+                      }
+                      className={`h-12 print:h-auto text-center border-[oklch(0.7_0_0)] focus:border-[oklch(0.4_0.1_250)] print-input-as-text ${
                         !hyValidation.isValid && subject.halfYearly
-                          ? 'border-[oklch(0.6_0.2_30)] bg-[oklch(0.95_0.05_30)]'
-                          : ''
+                          ? "border-[oklch(0.6_0.2_30)] bg-[oklch(0.95_0.05_30)]"
+                          : ""
                       }`}
-                      placeholder="0-100"
+                      placeholder=""
                     />
                     {!hyValidation.isValid && subject.halfYearly && (
                       <p className="text-xs text-[oklch(0.5_0.15_30)] mt-0.5 print:hidden">
@@ -160,20 +204,22 @@ export function ScholasticTable({ subjectMarks, onUpdate }: ScholasticTableProps
                     )}
                   </div>
                 </td>
-                <td className="border border-[oklch(0.3_0_0)] p-1">
+                <td className="border border-[oklch(0.3_0_0)] p-2 print:p-1">
                   <div>
                     <Input
                       type="number"
                       min="0"
                       max="100"
                       value={subject.annual}
-                      onChange={(e) => onUpdate(index, 'annual', e.target.value)}
-                      className={`h-8 text-center border-[oklch(0.7_0_0)] focus:border-[oklch(0.4_0.1_250)] print-input-as-text ${
+                      onChange={(e) =>
+                        onUpdate(index, "annual", e.target.value)
+                      }
+                      className={`h-12 print:h-auto text-center border-[oklch(0.7_0_0)] focus:border-[oklch(0.4_0.1_250)] print-input-as-text ${
                         !aeValidation.isValid && subject.annual
-                          ? 'border-[oklch(0.6_0.2_30)] bg-[oklch(0.95_0.05_30)]'
-                          : ''
+                          ? "border-[oklch(0.6_0.2_30)] bg-[oklch(0.95_0.05_30)]"
+                          : ""
                       }`}
-                      placeholder="0-100"
+                      placeholder=""
                     />
                     {!aeValidation.isValid && subject.annual && (
                       <p className="text-xs text-[oklch(0.5_0.15_30)] mt-0.5 print:hidden">
@@ -182,17 +228,17 @@ export function ScholasticTable({ subjectMarks, onUpdate }: ScholasticTableProps
                     )}
                   </div>
                 </td>
-                <td className="border border-[oklch(0.3_0_0)] p-2 text-center bg-[oklch(0.92_0.01_250)] font-medium text-[oklch(0.25_0_0)]">
-                  {x !== null ? formatNumber(x) : '-'}
+                <td className="border border-[oklch(0.3_0_0)] p-3 print:p-2 text-center bg-[oklch(0.92_0.01_250)] font-medium text-[oklch(0.25_0_0)]">
+                  {x !== null ? formatNumber(x) : ""}
                 </td>
-                <td className="border border-[oklch(0.3_0_0)] p-2 text-center bg-[oklch(0.92_0.01_250)] font-medium text-[oklch(0.25_0_0)]">
-                  {y !== null ? formatNumber(y) : '-'}
+                <td className="border border-[oklch(0.3_0_0)] p-3 print:p-2 text-center bg-[oklch(0.92_0.01_250)] font-medium text-[oklch(0.25_0_0)]">
+                  {y !== null ? formatNumber(y) : ""}
                 </td>
-                <td className="border border-[oklch(0.3_0_0)] p-2 text-center bg-[oklch(0.92_0.01_250)] font-medium text-[oklch(0.25_0_0)]">
-                  {z !== null ? formatNumber(z) : '-'}
+                <td className="border border-[oklch(0.3_0_0)] p-3 print:p-2 text-center bg-[oklch(0.92_0.01_250)] font-medium text-[oklch(0.25_0_0)]">
+                  {z !== null ? formatNumber(z) : ""}
                 </td>
-                <td className="border border-[oklch(0.3_0_0)] p-2 text-center bg-[oklch(0.85_0.03_250)] font-bold text-[oklch(0.2_0_0)]">
-                  {total !== null ? formatNumber(total) : '-'}
+                <td className="border border-[oklch(0.3_0_0)] p-3 print:p-2 text-center bg-[oklch(0.85_0.03_250)] font-bold text-[oklch(0.2_0_0)]">
+                  {total !== null ? formatNumber(total) : ""}
                 </td>
               </tr>
             );
@@ -200,43 +246,50 @@ export function ScholasticTable({ subjectMarks, onUpdate }: ScholasticTableProps
 
           {/* Total Row */}
           <tr className="bg-[oklch(0.82_0.03_250)] font-bold">
-            <td className="border border-[oklch(0.3_0_0)] p-2 text-[oklch(0.2_0_0)]">Total</td>
-            <td className="border border-[oklch(0.3_0_0)] p-2 text-center text-[oklch(0.2_0_0)]">
-              {totals.ut1 !== null ? formatNumber(totals.ut1) : '-'}
+            <td className="border border-[oklch(0.3_0_0)] p-3 print:p-2 text-[oklch(0.2_0_0)]">
+              Total
             </td>
-            <td className="border border-[oklch(0.3_0_0)] p-2 text-center text-[oklch(0.2_0_0)]">
-              {totals.ut2 !== null ? formatNumber(totals.ut2) : '-'}
+            <td className="border border-[oklch(0.3_0_0)] p-3 print:p-2 text-center text-[oklch(0.2_0_0)]">
+              {totals.ut1 !== null ? formatNumber(totals.ut1) : ""}
             </td>
-            <td className="border border-[oklch(0.3_0_0)] p-2 text-center text-[oklch(0.2_0_0)]">
-              {totals.utTotal !== null ? formatNumber(totals.utTotal) : '-'}
+            <td className="border border-[oklch(0.3_0_0)] p-3 print:p-2 text-center text-[oklch(0.2_0_0)]">
+              {totals.ut2 !== null ? formatNumber(totals.ut2) : ""}
             </td>
-            <td className="border border-[oklch(0.3_0_0)] p-2 text-center text-[oklch(0.2_0_0)]">
-              {totals.halfYearly !== null ? formatNumber(totals.halfYearly) : '-'}
+            <td className="border border-[oklch(0.3_0_0)] p-3 print:p-2 text-center text-[oklch(0.2_0_0)]">
+              {totals.utTotal !== null ? formatNumber(totals.utTotal) : ""}
             </td>
-            <td className="border border-[oklch(0.3_0_0)] p-2 text-center text-[oklch(0.2_0_0)]">
-              {totals.annual !== null ? formatNumber(totals.annual) : '-'}
+            <td className="border border-[oklch(0.3_0_0)] p-3 print:p-2 text-center text-[oklch(0.2_0_0)]">
+              {totals.halfYearly !== null
+                ? formatNumber(totals.halfYearly)
+                : ""}
             </td>
-            <td className="border border-[oklch(0.3_0_0)] p-2 text-center text-[oklch(0.2_0_0)]">
-              {totals.x !== null ? formatNumber(totals.x) : '-'}
+            <td className="border border-[oklch(0.3_0_0)] p-3 print:p-2 text-center text-[oklch(0.2_0_0)]">
+              {totals.annual !== null ? formatNumber(totals.annual) : ""}
             </td>
-            <td className="border border-[oklch(0.3_0_0)] p-2 text-center text-[oklch(0.2_0_0)]">
-              {totals.y !== null ? formatNumber(totals.y) : '-'}
+            <td className="border border-[oklch(0.3_0_0)] p-3 print:p-2 text-center text-[oklch(0.2_0_0)]">
+              {totals.x !== null ? formatNumber(totals.x) : ""}
             </td>
-            <td className="border border-[oklch(0.3_0_0)] p-2 text-center text-[oklch(0.2_0_0)]">
-              {totals.z !== null ? formatNumber(totals.z) : '-'}
+            <td className="border border-[oklch(0.3_0_0)] p-3 print:p-2 text-center text-[oklch(0.2_0_0)]">
+              {totals.y !== null ? formatNumber(totals.y) : ""}
             </td>
-            <td className="border border-[oklch(0.3_0_0)] p-2 text-center text-[oklch(0.2_0_0)]">
-              {totals.total100 !== null ? formatNumber(totals.total100) : '-'}
+            <td className="border border-[oklch(0.3_0_0)] p-3 print:p-2 text-center text-[oklch(0.2_0_0)]">
+              {totals.z !== null ? formatNumber(totals.z) : ""}
+            </td>
+            <td className="border border-[oklch(0.3_0_0)] p-3 print:p-2 text-center text-[oklch(0.2_0_0)]">
+              {totals.total100 !== null ? formatNumber(totals.total100) : ""}
             </td>
           </tr>
 
           {/* Percentage Row */}
           <tr className="bg-[oklch(0.78_0.04_250)] font-bold">
-            <td className="border border-[oklch(0.3_0_0)] p-2 text-[oklch(0.15_0_0)]">
+            <td className="border border-[oklch(0.3_0_0)] p-3 print:p-2 text-[oklch(0.15_0_0)]">
               Percentage
             </td>
-            <td colSpan={9} className="border border-[oklch(0.3_0_0)] p-2 text-center text-[oklch(0.15_0_0)]">
-              {percentage !== null ? `${formatNumber(percentage)}%` : '-'}
+            <td
+              colSpan={9}
+              className="border border-[oklch(0.3_0_0)] p-3 print:p-2 text-center text-[oklch(0.15_0_0)]"
+            >
+              {percentage !== null ? `${formatNumber(percentage)}%` : ""}
             </td>
           </tr>
         </tbody>
